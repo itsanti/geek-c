@@ -1,5 +1,4 @@
-*.exe
-*.dev
-*.win
-*.o
+*.cbp
 *.layout
+bin
+obj
