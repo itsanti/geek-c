@@ -77,14 +77,14 @@ void solution3()
 
 	printf("Введите 2 числа через пробел: ");
 	scanf("%d %d", &a, &b);
-  printf("до обмена: a = %d b = %d\n", a, b);
+	printf("до обмена: a = %d b = %d\n", a, b);
 
 	// обмен с переменной с
 	c = a;
 	a = b;
 	b = c;
 
-  printf("после обмена: a = %d b = %d\n", a, b);
+	printf("после обмена: a = %d b = %d\n", a, b);
 
 	// обмен через сумму
 	a = a + b;
@@ -104,14 +104,14 @@ void solution8()
 	printf("\nSolution 8\n\n");
 
 	int a, b;
-  int i;
+	int i;
 
 	printf("Введите 2 числа через пробел: ");
 	scanf("%d %d", &a, &b);
 
 	printf("current\ta^2\ta^3\n");
 	for (i = a; i <= b; i++) {
-    printf("%d\t%d\t%d\t\n", i, i * i, i * i * i);
+		printf("%d\t%d\t%d\t\n", i, i * i, i * i * i);
 	}
 
 	system("pause");
