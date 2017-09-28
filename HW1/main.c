@@ -3,9 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <math.h>
 
 void solution2();
 void solution3();
+void solution5();
+int get_season(int);
 void solution8();
 void menu();
 
@@ -20,13 +23,16 @@ int main(void)
 		scanf("%i", &sel);
 		switch (sel)
 		{
-		case 1:
+		case 2:
 			solution2();
 			break;
-		case 2:
+		case 3:
 			solution3();
 			break;
-		case 3:
+    case 5:
+			solution5();
+			break;
+		case 8:
 			solution8();
 			break;
 		case 0:
@@ -97,6 +103,56 @@ void solution3()
 }
 
 /**
+ * 5. определить, к какому времени года относится месяц
+ */
+void solution5()
+{
+	printf("\nSolution 5\n\n");
+
+	int month;
+
+  while(1) {
+    printf("Введите номер месяца (-1 для выхода): ");
+    scanf("%d", &month);
+    if (month == -1) {
+      break;
+    }
+    switch (get_season(month)) {
+      case 1:
+        printf("Зима\n");
+        break;
+      case 2:
+        printf("Весна\n");
+        break;
+      case 3:
+        printf("Лето\n");
+        break;
+      case 4:
+        printf("Осень\n");
+        break;
+      default:
+        printf("Неверный номер месяцца\n");
+    }
+  }
+
+	system("pause");
+}
+
+/**
+ * получение номера сезона по номеру месяца - аппроксимация
+ */
+int get_season(int month) {
+  double y;
+
+  if (month == 12) {
+    return 1;
+  }
+
+  y = 0.3273 * month + 0.6727;
+  return (int)round(y);
+}
+
+/**
  * 8. Ввести a и b и вывести квадраты и кубы чисел от a до b.
  */
 void solution8()
@@ -122,8 +178,9 @@ void solution8()
  */
 void menu()
 {
-	printf("1 - task 2: максимальное из четырех чисел\n");
-	printf("2 - task 3: обмен переменных\n");
-	printf("3 - task 8: вывести квадраты и кубы чисел\n");
+	printf("2 - task 2: максимальное из четырех чисел\n");
+	printf("3 - task 3: обмен переменных\n");
+	printf("5 - task 5: определить, к какому времени года относится месяц\n");
+	printf("8 - task 8: вывести квадраты и кубы чисел\n");
 	printf("0 - exit\n");
 }
