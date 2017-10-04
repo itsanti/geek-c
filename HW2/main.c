@@ -3,17 +3,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include <math.h>
+
+void solution1();
+void dec_to_bin(int);
 
 void solution2();
+int power_loop(int, int);
+int power_rec(int, int);
+int power_rec_even(int, int);
+
 void solution3();
-void solution5();
-void solution8();
+int calc_arr(void);
+int calc_rec(int);
+
 void menu();
 
 int main(void)
 {
 	setlocale(0, "");
+
 	int sel = 0;
 	do
 	{
@@ -22,17 +30,14 @@ int main(void)
 		scanf("%i", &sel);
 		switch (sel)
 		{
+		case 1:
+			solution1();
+			break;
 		case 2:
 			solution2();
 			break;
-		case 3:
+    case 3:
 			solution3();
-			break;
-    case 5:
-			solution5();
-			break;
-		case 8:
-			solution8();
 			break;
 		case 0:
 			printf("Bye-bye\n");
@@ -46,49 +51,128 @@ int main(void)
 }
 
 /**
- * 2. Найти максимальное из четырех чисел. Массивы не использовать.
+ * 1. перевод из 10 -> 2
+ */
+void solution1()
+{
+	printf("\nSolution 1\n\n");
+
+  int x;
+  printf("Input x: ");
+  scanf("%d", &x);
+
+  dec_to_bin(x);
+
+  puts("");
+	system("pause");
+}
+
+void dec_to_bin(int x) {
+  if (x != 0) {
+    dec_to_bin(x / 2);
+    printf("%d", x % 2);
+  }
+}
+
+/**
+ * 2. возведение числа a в степень b
  */
 void solution2()
 {
 	printf("\nSolution 2\n\n");
 
+  int a, b;
+
+  printf("Input a and b: ");
+  scanf("%d %d", &a, &b);
+
+  printf("loop: a in power of b is: %d\n", power_loop(a, b));
+  printf("rec: a in power of b is: %d\n", power_rec(a, b));
+  printf("rec even: a in power of b is: %d\n", power_rec_even(a, b));
+
 	system("pause");
 }
 
+// реализация через цикл
+int power_loop(int a, int b) {
+
+  long p = 1;
+
+  while (b) {
+    p *= a;
+    b--;
+  }
+
+  return p;
+}
+
+// реализация с рекурсией
+int power_rec(int a, int b) {
+  if (b == 0) {
+    return 1;
+  } else {
+    return a * power_rec(a, b - 1);
+  }
+}
+
+// реализация с рекурсией + свойство четности степени
+int power_rec_even(int a, int b) {
+  int p = 1;
+
+  if (b == 0) {
+    return 1;
+  }
+
+  if (b % 2 == 0) {
+    p = power_rec_even(a, b / 2);
+    return p * p;
+  } else {
+    return a * power_rec_even(a, b - 1);
+  }
+
+}
+
 /**
- * 3. обмен значениями двух целочисленных переменных
+ * 3.
  */
 void solution3()
 {
 	printf("\nSolution 3\n\n");
 
-
-
-	system("pause");
-}
-
-/**
- * 5. определить, к какому времени года относится месяц
- */
-void solution5()
-{
-	printf("\nSolution 5\n\n");
-
-	int month;
-
-
+  printf("arr: programms count: %d\n", calc_arr());
+  printf("rec: programms count: %d\n", calc_rec(20));
 
 	system("pause");
 }
 
-/**
- * 8. Ввести a и b и вывести квадраты и кубы чисел от a до b.
- */
-void solution8()
-{
-	printf("\nSolution 8\n\n");
+// реализация с массивом
+int calc_arr(void) {
+  int a[21];
+  int i;
 
-	system("pause");
+  a[2] = 0;
+  a[3] = 1;
+
+  for (i = 4; i < 21; i++) {
+    if (i % 2 == 0) {
+      a[i] = a[i - 1] + a[i / 2];
+    } else {
+      a[i] = a[i - 1];
+    }
+  }
+
+  return a[20];
+}
+
+// реализация с рекурсией
+int calc_rec(int i) {
+  if (i == 2) return 0;
+  if (i == 3) return 1;
+  if (i % 2 == 0) {
+    return calc_rec(i - 1) + calc_rec(i / 2);
+  } else {
+    return calc_rec(i - 1);
+  }
 }
 
 /**
@@ -96,9 +180,8 @@ void solution8()
  */
 void menu()
 {
-	printf("2 - task 2: максимальное из четырех чисел\n");
-	printf("3 - task 3: обмен переменных\n");
-	printf("5 - task 5: определить, к какому времени года относится месяц\n");
-	printf("8 - task 8: вывести квадраты и кубы чисел\n");
+	printf("1 - task 1: перевода из 10 системы в двоичную\n");
+	printf("2 - task 2: возведение числа a в степень b\n");
+	printf("3 - task 3: подсчет программ перевода из 3 в 20\n");
 	printf("0 - exit\n");
 }
